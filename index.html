@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voice to Text Generator</title>
+<style>
+    body {
+        background-image: url(./background.jpg);
+        background-repeat: no-repeat;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    #container {
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    textarea {
+        width: 300px;
+        height: 150px;
+        resize: none;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body background="./background.jpg">
+    <div id="container">
+        <h1>Speech to Text Converter</h1>
+        <textarea id="output" rows="4" cols="50"></textarea><br>
+        <button id="start-btn">Start</button>
+        <button id="stop-btn">Stop</button>
+    </div>  
+<script>
+const recognition =  new webkitSpeechRecognition();
+recognition.lang = 'en-US';
+recognition.interimResults = true;
+recognition.continuous = true;
+document.getElementById("start-btn")
+.onclick = () => recognition.start();
+document.getElementById("stop-btn")
+.onclick = () => recognition.stop();
+recognition.onresult = event => {
+output.value = event.results[event.results.length - 1][0].transcript;
+navigator.mediaDevices.getUserMedia({ audio: true });
+}
+</script>
+</body>
+</html>
